@@ -239,7 +239,6 @@ function utf8.convert(str)
 end
 
 if (not loaded) then
-    print("\169108103235Lua: Loading UTF-8 wrapper")
     local _msg = msg
     function msg(txt)
         _msg(utf8.convert(txt))
