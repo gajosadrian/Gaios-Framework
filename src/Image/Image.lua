@@ -44,12 +44,5 @@ local function removeImages(id)
 	images[id] = {}
 end
 
-local function onJoin(id)
-    removeImages(id)
-end
-addhook('join', onJoin)
-
-local function onLeave(id)
-    removeImages(id)
-end
-addhook('leave', onLeave)
+addhook('join', removeImages)
+addhook('leave', removeImages)
