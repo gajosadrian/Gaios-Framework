@@ -15,8 +15,8 @@ function Lottery:addEntry(participant, lots)
     lots = lots or 1
 
     table.insert(self._entries, {
-        'participant' = participant,
-        'lots' = lots
+        participant = participant,
+        lots = lots
     })
 
     self._lotsTotal = self._lotsTotal + lots
