@@ -1,6 +1,5 @@
--- Very simple OOP module used for CAS which includes all the basic OOP implementations. The
--- following function will return a class. It can also inherit properties from another class
--- by passing the needed class as the first argument.
+-- The following function will return a class. It can also inherit properties
+-- from another class by passing the needed class as the first argument.
 class = function(inheritsFrom)
     -- Checks if all the arguments are correct.
     if inheritsFrom then

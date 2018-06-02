@@ -1,3 +1,3 @@
 function Auth.player(id)
-    return User.find(id)
+    return User.findOrFail(id)
 end
