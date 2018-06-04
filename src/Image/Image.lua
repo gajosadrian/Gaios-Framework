@@ -11,8 +11,7 @@ function image(path, x, y, mode, pl)
 	if (pl > 0) then
 		table.insert(images[pl], imageId)
 	elseif (mode >= 101 and mode <= 132) or (mode >= 201 and mode <= 232) or (mode >= 133 and mode <= 164) then
-		local pl = tonumber(tostring(mode):sub(2, 3))
-		pl = pl % 32
+		pl = tonumber(tostring(mode):sub(2, 3)) % 32
 
 		table.insert(images[pl], imageId)
 	end
