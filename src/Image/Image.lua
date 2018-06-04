@@ -18,7 +18,7 @@ function image(path, x, y, mode, pl)
     return imageId
 end
 
-_freeimage = freeimage
+local _freeimage = freeimage
 function freeimage(imageId)
     _freeimage(imageId)
     removeImage(imageId)
