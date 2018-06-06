@@ -65,7 +65,7 @@ local function getPlayers(mode)
     local players = {}
     for _, playerId in pairs(player(0, mode)) do
         local steamId = player(playerId, 'steamid')
-        table.insert(players, Auth.player(steamId))
+        table.insert(players, Config.user.model.find(steamId))
     end
     return players
 end
