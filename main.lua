@@ -26,6 +26,12 @@ end
 -------------------------
 
 Config = {}
+for v in io.enumdir(__DIR__ .. 'config/') do
+    if v:sub(-4) == '.lua' then
+        _G['Config.' .. v:sub(1, -4)] = require(__DIR__ .. 'config/' .. v)
+    end
+end
+
 for v in io.enumdir(__DIR__ .. 'src/') do
     if v:sub(1, 1) ~= '.' and v:sub(-4) ~= '.lua' then
         _G[v] = {}
@@ -33,5 +39,4 @@ for v in io.enumdir(__DIR__ .. 'src/') do
 end
 
 dofileDir(__DIR__ .. 'lib/', true)
-dofileDir(__DIR__ .. 'config/')
 dofileDir(__DIR__ .. 'src/', true)
