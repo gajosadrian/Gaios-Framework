@@ -3,15 +3,15 @@
 -------------------------
 
 function __DIR__()
-    return __FILE__():match('(.*/)')
+    return (__FILE__()):match('(.*/)')
 end
 
 function __FILE__()
-    return debug.getinfo(4, 'S').source
+    return debug.getinfo(2, 'S').source:sub(2)
 end
 
 function __LINE__()
-    return debug.getinfo(4, 'l').currentline
+    return debug.getinfo(2, 'l').currentline
 end
 
 -------------------------
@@ -66,4 +66,15 @@ function table.removeValue(tab, value)
         end
     end
     return false
+end
+
+-------------------------
+--       STRING        --
+-------------------------
+
+function string:split(sep)
+   local sep, fields = sep or ":", {}
+   local pattern = string.format("([^%s]+)", sep)
+   self:gsub(pattern, function(c) fields[#fields + 1] = c end)
+   return fields
 end

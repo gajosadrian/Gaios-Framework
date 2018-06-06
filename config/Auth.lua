@@ -1,7 +1,7 @@
 return {
 
     player = {
-        model = _G['Auth.Player'],
+        model = 'Auth.Player',
     },
 
 }

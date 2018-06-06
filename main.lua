@@ -2,12 +2,11 @@
 --       HELPER        --
 -------------------------
 
-local function __DIR__()
-    return debug.getinfo(2, 'S').source:sub(2):match('(.*/)')
-end
-local __DIR__ = __DIR__()
+local __DIR__ = 'sys/lua/Gaios-Framework/'
 
 function dofileDir(dir, deep)
+    deep = (deep == nil) and true or false
+
     for _, v in io.enumdir(dir) do
         if not v then
             v = _
@@ -24,19 +23,25 @@ end
 -------------------------
 --        INIT         --
 -------------------------
+dofileDir(__DIR__ .. 'lib/')
 
 Config = {}
-for v in io.enumdir(__DIR__ .. 'config/') do
+for _, v in io.enumdir(__DIR__ .. 'config/') do
     if v:sub(-4) == '.lua' then
-        _G['Config.' .. v:sub(1, -4)] = require(__DIR__ .. 'config/' .. v)
+        local name = v:sub(1, -5)
+        _G['Config'][name] = require(__DIR__ .. 'config/' .. name)
     end
 end
 
-for v in io.enumdir(__DIR__ .. 'src/') do
-    if v:sub(1, 1) ~= '.' and v:sub(-4) ~= '.lua' then
+for _, v in io.enumdir(__DIR__ .. 'src/') do
+    if v:sub(-4) ~= '.lua' then
         _G[v] = {}
     end
 end
 
-dofileDir(__DIR__ .. 'lib/', true)
-dofileDir(__DIR__ .. 'src/', true)
+dofileDir(__DIR__ .. 'src/')
+
+if type(Config.Auth.player.model) == 'string' then
+    local words = Config.Auth.player.model:split('.')
+    Config.Auth.player.model = _G[words[1]][words[2]]
+end
