@@ -1,6 +1,6 @@
 Config.Auth = {
 
-    user = {
+    player = {
         model = _G['Auth.Player'],
     },
 
