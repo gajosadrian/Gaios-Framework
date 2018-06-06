@@ -26,7 +26,7 @@ end
 -------------------------
 
 for v in io.enumdir(__DIR__ .. 'src/') do
-    if v:sub(1, 1) ~= '.' then
+    if v:sub(1, 1) ~= '.' and v:sub(-4) ~= '.lua' then
         _G[v] = {}
     end
 end
