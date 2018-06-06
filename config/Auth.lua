@@ -1,4 +1,4 @@
-Config.Auth = {
+return {
 
     player = {
         model = _G['Auth.Player'],
