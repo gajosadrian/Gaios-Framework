@@ -31,5 +31,6 @@ for v in io.enumdir(__DIR__ .. 'src/') do
     end
 end
 
-dofileDir(__DIR__ .. 'modules/', true)
+dofileDir(__DIR__ .. 'lib/', true)
+dofileDir(__DIR__ .. 'src/Config/')
 dofileDir(__DIR__ .. 'src/', true)
