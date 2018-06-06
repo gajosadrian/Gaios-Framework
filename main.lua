@@ -25,6 +25,7 @@ end
 --        INIT         --
 -------------------------
 
+Config = {}
 for v in io.enumdir(__DIR__ .. 'src/') do
     if v:sub(1, 1) ~= '.' and v:sub(-4) ~= '.lua' then
         _G[v] = {}
@@ -32,5 +33,5 @@ for v in io.enumdir(__DIR__ .. 'src/') do
 end
 
 dofileDir(__DIR__ .. 'lib/', true)
-dofileDir(__DIR__ .. 'src/Config/')
+dofileDir(__DIR__ .. 'config/')
 dofileDir(__DIR__ .. 'src/', true)
