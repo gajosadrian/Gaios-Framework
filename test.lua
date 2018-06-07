@@ -22,7 +22,7 @@ end
 Role = class(Model)
 
 -- Role.user
-function Role:relationUser()
+function Role:relation_User()
     return self.belongsTo(User)
 end
 
@@ -70,7 +70,7 @@ end
 User = class(Auth.Player)
 
 -- User.role
-function User:relationRole()
+function User:relation_Role()
     return self.hasOne(Role)
 end
 
