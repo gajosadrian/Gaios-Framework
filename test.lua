@@ -11,7 +11,7 @@ function Horse:up()
     end)
 end
 
-function down()
+function Horse:down()
     Schema.dropIfExists('horses');
 end
 
@@ -45,14 +45,14 @@ end
 ------------------
 User = class(Auth.Player)
 
-function Horse:up()
+function User:up()
     Schema.create('users', function(table)
         table:increments('id')
         table:increments('horseId')
     end)
 end
 
-function down()
+function User:down()
     Schema.dropIfExists('users');
 end
 
