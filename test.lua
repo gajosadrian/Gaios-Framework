@@ -1,64 +1,77 @@
 ------------------------
---     Horse MODEL    --
+--  Roles MIGRATION   --
 ------------------------
-Horse = class(Model)
+CreateRolesTable = class(Migration)
 
-function Horse:up()
-    Schema.create('horses', function(table)
-        table:increments('id')
+function CreateRolesTable:up()
+    Schema.create('roles', function(table)
+        table:integer('id')
+        table:integer('name')
+
         table:integer('userId')
-        table:integer('level')
     end)
 end
 
-function Horse:down()
-    Schema.dropIfExists('horses');
+function CreateRolesTable:down()
+    Schema.dropIfExists('roles');
 end
 
--- Horse.user
-function Horse:relationUser()
+------------------------
+--     Role MODEL     --
+------------------------
+Role = class(Model)
+
+-- Role.user
+function Role:relationUser()
     return self.belongsTo(User)
 end
 
 ------------------------
---     Horse VIEW     --
+--     Role VIEW      --
 ------------------------
 local viewUser = {}
-HorseView = class(View)
+RoleView = class(View)
 
-function HorseView:ride(user)
+function RoleView:welcome(user)
+    -- code
 end
 
 ------------------------
---  Horse CONTROLLER  --
+--  Role CONTROLLER   --
 ------------------------
-HorseController = class(Controller)
+RoleController = class(Controller)
 
-function HorseController:use(user)
-    if user.horse.level > 2 then
-        HorseView:ride(user)
+function RoleController:join(user)
+    if user.role.id == 100 then
+        RoleView:welcome(user)
     end
 end
 
-------------------
---     USER    --
-------------------
-User = class(Auth.Player)
+------------------------
+--  Users MIGRATION   --
+------------------------
+CreateUsersTable = class(Migration)
 
-function User:up()
+function CreateUsersTable:up()
     Schema.create('users', function(table)
         table:increments('id')
-        table:increments('horseId')
+
+        table:increments('roleId')
     end)
 end
 
-function User:down()
+function CreateUsersTable:down()
     Schema.dropIfExists('users');
 end
 
--- user.horse
-function User:relationHorse()
-    return self.hasOne(Horse)
+------------------------
+--     User MODEL     --
+------------------------
+User = class(Auth.Player)
+
+-- User.role
+function User:relationRole()
+    return self.hasOne(Role)
 end
 
 Config.Auth.player.model = User
