@@ -17,8 +17,8 @@ class = function(inheritsFrom)
         -- Creating a table which hold original (non-overriden) properties.
         class.super = setmetatable({}, {
             __index = inheritsFrom,
-            __call = function(_, ...) -- If it was called as a function, then call the constructor.
-                inheritsFrom.constructor(...)
+            __call = function(_, ...) -- If it was called as a function, then call the __construct.
+                inheritsFrom.__construct(...)
             end})
         setmetatable(class, {__index = inheritsFrom}) -- Inherit properties.
     end
@@ -28,9 +28,9 @@ class = function(inheritsFrom)
         -- Initializes the instance.
         local instance = setmetatable({}, class)
 
-        -- If the instance has the constructor declared, then call it.
-        if instance.constructor then
-            local success, errorString = pcall(instance.constructor, instance, ...)
+        -- If the instance has the __construct declared, then call it.
+        if instance.__construct then
+            local success, errorString = pcall(instance.__construct, instance, ...)
             if not success then
                 error(errorString, 2)
             end
