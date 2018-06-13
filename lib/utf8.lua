@@ -1,6 +1,6 @@
-local loaded = not (not utf8) -- Is the library being loaded again?
-
-utf8 = {}
+-- local loaded = not (not utf8) -- Is the library being loaded again?
+--
+-- utf8 = {}
 
 local shift_6  = 2^6
 local shift_12 = 2^12
