@@ -299,7 +299,7 @@ Player.__index = function(self, key)
         end,
 
         [Default] = function()
-            rawget(self, key)
+            return rawget(self, key)
         end,
     }
 end
