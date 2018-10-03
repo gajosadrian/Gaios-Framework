@@ -24,6 +24,10 @@ function Map:generateTiles()
     end
 end
 
+function Map:getTile(x, y)
+    return self.tiles[x][y]
+end
+
 Map.__index = function(self, key)
     return switch(key) {
 
