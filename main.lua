@@ -40,8 +40,3 @@ for _, v in io.enumdir(__DIR__ .. 'src/') do
 end
 
 dofileDir(__DIR__ .. 'src/')
-
-if type(Config.Auth.player.model) == 'string' then
-    local words = Config.Auth.player.model:split('.')
-    Config.Auth.player.model = _G[words[1]][words[2]]
-end
