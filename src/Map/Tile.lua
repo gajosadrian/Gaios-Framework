@@ -27,8 +27,8 @@ function Tile:constructor(x, y)
     self.items = {}
 end
 
-function Tile:spawnItem()
-    --TODO
+function Tile:addItem(item)
+    table.insert(self.items, item)
 end
 
 function Tile:getItems()
@@ -80,7 +80,7 @@ Tile.__index = function(self, key)
             return tile(x, y, 'brightness')
         end,
 
-        -- TILE Properties:
+        -- TILE PROPERTIES:
 
         none = function()
             return self.property == Tile.Properties.none
