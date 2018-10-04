@@ -1,7 +1,7 @@
 Map.Tile = class()
 local Tile = Map.Tile
 
-Tile.properties = {
+Tile.Properties = {
     none = 0,
     wall = 1,
     obstacle = 2,
@@ -28,7 +28,7 @@ function Tile:constructor(x, y)
 end
 
 function Tile:spawnItem()
-    -- TODO
+    --TODO
 end
 
 function Tile:getItems()
@@ -80,22 +80,22 @@ Tile.__index = function(self, key)
             return tile(x, y, 'brightness')
         end,
 
-        -- TILE PROPERTIES:
+        -- TILE Properties:
 
         none = function()
-            return self.property == Tile.properties.none
+            return self.property == Tile.Properties.none
         end,
 
         wall = function()
-            return self.property == Tile.properties.wall or self.property == Tile.properties.wallNoShadow
+            return self.property == Tile.Properties.wall or self.property == Tile.Properties.wallNoShadow
         end,
 
         obstacle = function()
-            return self.property == Tile.properties.obstacle or self.property == Tile.properties.obstacleNoShadow
+            return self.property == Tile.Properties.obstacle or self.property == Tile.Properties.obstacleNoShadow
         end,
 
         deadly = function()
-            return self.property == Tile.properties.Tile.properties.deadly or self.property == Tile.properties.toxicDeadly or self.property == Tile.properties.explosionDeadly or self.property == Tile.properties.abyssDeadly
+            return self.property == Tile.Properties.Tile.Properties.deadly or self.property == Tile.Properties.toxicDeadly or self.property == Tile.Properties.explosionDeadly or self.property == Tile.Properties.abyssDeadly
         end,
 
         [Default] = function()
