@@ -24,10 +24,15 @@ Tile.properties = {
 function Tile:constructor(x, y)
     self.x = x
     self.y = y
+    self.items = {}
 end
 
 function Tile:spawnItem()
     -- TODO
+end
+
+function Tile:getItems()
+    return self.items
 end
 
 Tile.__index = function(self, key)
