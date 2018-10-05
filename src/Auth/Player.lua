@@ -86,11 +86,11 @@ function Player.getCounterTerrorists()
     return getPlayers('team2')
 end
 
-function Player.getCounterTerrorists()
+function Player.getLivingTerrorists()
     return getPlayers('team1living')
 end
 
-function Player.getCounterTerrorists()
+function Player.getLivingCounterTerrorists()
     return getPlayers('team2living')
 end
 
