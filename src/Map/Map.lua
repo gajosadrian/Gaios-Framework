@@ -11,6 +11,15 @@ function Map.getInstance()
     return instance
 end
 
+function Map:getTile(x, y)
+    return self.tiles[x][y]
+end
+
+function Map:addItem(item, x, y)
+    local tile = self:getTile(x, y)
+    tile:addItem(item)
+end
+
 function Map:init()
     self:generateTiles()
 end
@@ -22,6 +31,10 @@ function Map:generateTiles()
             table.insert2D(self.tiles, x, y, tile)
         end
     end
+end
+
+function Map:getTile(x, y)
+    return self.tiles[x][y]
 end
 
 Map.__index = function(self, key)
