@@ -25,11 +25,11 @@ function Item:setPos(x, y)
 end
 
 function Item.lastSpawnedId()
-    local items = Item.all()
+    local items = Item.getAll()
     return items[#items]
 end
 
-function Item.all()
+function Item.getAll()
     return item(0, 'table')
 end
 
@@ -52,7 +52,7 @@ Item.__index = function(self, key)
         end,
 
         type = function()
-            return ItemType.new(id)
+            return Item.ItemType.new(id)
         end,
 
         player = function()
@@ -86,10 +86,6 @@ Item.__index = function(self, key)
 end
 
 Item.__newindex = function(self, key, value)
-    -- local id = rawget(self, 'id')
-    -- local x = rawget(self, 'x')
-    -- local y = rawget(self, 'y')
-
     switch(key) {
         ammoIn = function()
             setammo(self.id, 0, value, self.ammo)
