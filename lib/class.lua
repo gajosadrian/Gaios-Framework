@@ -20,7 +20,7 @@ class = function(inheritsFrom)
             __call = function(_, ...) -- If it was called as a function, then call the constructor.
                 inheritsFrom.constructor(...)
             end})
-        setmetatable(class, {__index = inheritsFrom}) -- Inherit properties.
+        setmetatable(class, {__index = inheritsFrom, __index = inheritsFrom.__index, __newindex = inheritsFrom.__newindex}) -- Inherit properties.
     end
 
     -- Creates a new instance of the class.

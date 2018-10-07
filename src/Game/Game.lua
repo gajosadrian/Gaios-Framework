@@ -439,8 +439,6 @@ Game.__index = function(self, key)
     }
 end
 
--- setters
-
 Game.__newindex = function(self, key, value)
     switch(key) {
         checkusgnlogin = function()

@@ -11,39 +11,13 @@ Object.Teams = {
     vip = 3,
 }
 
-Object.NPCs = {
-    zombie = 1,
-    headcrab = 2,
-    snark = 3,
-    vortigaunt = 4,
-    soldier = 5,
-}
-
-function Object:constructor(typeId, x, y, rot, mode, team, player)
-    self.id = self:spawn(...)
-end
-
-function Object:spawn(...)
-    local args = {...}
-    local typeId = args[1]
-
-    spawnobject(...)
-    return Object.lastSpawnedId()
-end
-
-function Object:remove()
-    killobject(self.id)
-end
-
-function Object:setPos(x, y)
-    self:remove()
-    self:spawn(self.typeId, x, y, self.rot, self.mode, self.team, self.player)
-    self.health = self.health
-end
-
-function Object:damage(damage, userId)
-    damageobject(self.id, damange, userId)
-end
+-- Object.NPCs = {
+--     zombie = 1,
+--     headcrab = 2,
+--     snark = 3,
+--     vortigaunt = 4,
+--     soldier = 5,
+-- }
 
 function Object.lastSpawnedId()
     local objects = Object.getAll()
@@ -86,8 +60,12 @@ Object.__index = function(self, key)
             return object(id, 'team')
         end,
 
-        player = function()
+        playerId = function()
             return object(id, 'player')
+        end,
+
+        player = function()
+            return User.find(self.playerId)
         end,
 
         x = function()
