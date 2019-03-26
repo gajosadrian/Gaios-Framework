@@ -38,5 +38,5 @@ local function removeImages(id)
     images[id] = {}
 end
 
-addhook('join', removeImages)
+addhook('connect', removeImages)
 addhook('leave', removeImages)

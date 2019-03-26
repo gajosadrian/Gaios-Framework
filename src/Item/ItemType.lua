@@ -1,7 +1,7 @@
-Item.ItemType = class()
-local ItemType = Item.ItemType
+local ItemType
+ItemType = class()
 
-ItemType.Types = {
+local types = {
     usp = 1, glock = 2, deagle = 3, p228 = 4, elite = 5,
     fiveseven = 6, m3 = 10, xm1014 = 11, mp5 = 20, tmp = 21,
     mac10 = 23, ump45 = 23, ak47 = 30, sg552 = 31, m4a1 = 32,
@@ -19,71 +19,68 @@ ItemType.Types = {
     gold = 68, redflag = 70, blueflag = 71, lightarmor = 79, armor = 80,
     heavyarmour = 81, medicarmor = 82, superarmor = 83, stealthsuit = 84
 }
+for type, value in pairs(types) do
+    ItemType[type:upper()] = value
+end
 
 function ItemType:constructor(id)
     self.id = id
 end
 
-ItemType.__index = function(self, key)
-    local id = rawget(self, 'id')
-
-    return switch(key) {
-
-        name = function()
-            return itemtype(id, 'name')
-        end,
-
-        dmg = function()
-            return itemtype(id, 'dmg')
-        end,
-
-        dmg_z1 = function()
-            return itemtype(id, 'dmg_z1')
-        end,
-
-        dmg_z2 = function()
-            return itemtype(id, 'dmg_z2')
-        end,
-
-        rate = function()
-            return itemtype(id, 'rate')
-        end,
-
-        reload = function()
-            return itemtype(id, 'reload')
-        end,
-
-        ammo = function()
-            return itemtype(id, 'ammo')
-        end,
-
-        ammoin = function()
-            return itemtype(id, 'ammoin')
-        end,
-
-        price = function()
-            return itemtype(id, 'price')
-        end,
-
-        range = function()
-            return itemtype(id, 'range')
-        end,
-
-        dispersion = function()
-            return itemtype(id, 'dispersion')
-        end,
-
-        slot = function()
-            return itemtype(id, 'slot')
-        end,
-
-        recoil = function()
-            return itemtype(id, 'recoil')
-        end,
-
-
-        [Default] = function()
-            return rawget(self, key)
-        end,
-    }
+function ItemType:getNameAttribute()
+	return itemtype(self.id, 'name')
 end
+
+function ItemType:getDmgAttribute()
+	return itemtype(self.id, 'dmg')
+end
+
+function ItemType:getDmgZ1Attribute()
+	return itemtype(self.id, 'dmg_z1')
+end
+
+function ItemType:getDmgZ2Attribute()
+	return itemtype(self.id, 'dmg_z2')
+end
+
+function ItemType:getRateAttribute()
+	return itemtype(self.id, 'rate')
+end
+
+function ItemType:getReloadAttribute()
+	return itemtype(self.id, 'reload')
+end
+
+function ItemType:getAmmoAttribute()
+	return itemtype(self.id, 'ammo')
+end
+
+function ItemType:getAmmoinAttribute()
+	return itemtype(self.id, 'ammoin')
+end
+
+function ItemType:getPriceAttribute()
+	return itemtype(self.id, 'price')
+end
+
+function ItemType:getRangeAttribute()
+	return itemtype(self.id, 'range')
+end
+
+function ItemType:getDispersionAttribute()
+	return itemtype(self.id, 'dispersion')
+end
+
+function ItemType:getSlotAttribute()
+	return itemtype(self.id, 'slot')
+end
+
+function ItemType:getRecoilAttribute()
+	return itemtype(self.id, 'recoil')
+end
+
+-------------------------
+--        INIT         --
+-------------------------
+
+return ItemType

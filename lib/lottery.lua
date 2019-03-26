@@ -1,12 +1,18 @@
-Lottery = class()
+Lottery = {}
+Lottery.__index = Lottery
 
-function Lottery:constructor()
+function Lottery.new()
+    local self = {}
+    setmetatable(self, Lottery)
+
     -- list of entries in the lottery. Elements are of the form
     self._entries = {}
 
     -- total number of lots in the pool
     -- Lots can come in decimals as well, like 0.02
     self._lotsTotal = 0
+
+    return self
 end
 
 -- Adds a new entry to the lottery,

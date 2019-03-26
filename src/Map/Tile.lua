@@ -1,7 +1,7 @@
-Map.Tile = class()
-local Tile = Map.Tile
+local Tile
+Tile = class()
 
-Tile.Properties = {
+local types = {
     none = 0,
     wall = 1,
     obstacle = 2,
@@ -20,101 +20,86 @@ Tile.Properties = {
     explosionDeadly = 52,
     abyssDeadly = 53,
 }
+for type, value in pairs(types) do
+    Tile[type:upper()] = value
+end
 
 function Tile:constructor(x, y)
     self.x = x
     self.y = y
-    self.items = {}
 end
 
-function Tile:addItem(item)
-    table.insert(self.items, item)
+-------------------------
+--       GETTERS       --
+-------------------------
+
+function Tile:getFrameAttribute()
+	return tile(self.x, self.y, 'frame')
 end
 
-function Tile:getItems()
-    return self.items
+function Tile:getPropertyIdAttribute()
+	return tile(self.x, self.y, 'property')
 end
 
-Tile.__index = function(self, key)
-    local x = rawget(self, 'x')
-    local y = rawget(self, 'y')
-
-    return switch(key) {
-        frame = function()
-            return tile(x, y, 'frame')
-        end,
-
-        property = function()
-            return tile(x, y, 'property')
-        end,
-
-        walkable = function()
-            return tile(x, y, 'walkable')
-        end,
-
-        entity = function()
-            return tile(x, y, 'entity')
-        end,
-
-        hascustomframe = function()
-            return tile(x, y, 'hascustomframe')
-        end,
-
-        originalframe = function()
-            return tile(x, y, 'originalframe')
-        end,
-
-        rot = function()
-            return tile(x, y, 'rot')
-        end,
-
-        blend = function()
-            return tile(x, y, 'blend')
-        end,
-
-        color = function()
-            return tile(x, y, 'color')
-        end,
-
-        brightness = function()
-            return tile(x, y, 'brightness')
-        end,
-
-        -- TILE PROPERTIES:
-
-        none = function()
-            return self.property == Tile.Properties.none
-        end,
-
-        wall = function()
-            return self.property == Tile.Properties.wall or self.property == Tile.Properties.wallNoShadow
-        end,
-
-        obstacle = function()
-            return self.property == Tile.Properties.obstacle or self.property == Tile.Properties.obstacleNoShadow
-        end,
-
-        deadly = function()
-            return self.property == Tile.Properties.Tile.Properties.deadly or self.property == Tile.Properties.toxicDeadly or self.property == Tile.Properties.explosionDeadly or self.property == Tile.Properties.abyssDeadly
-        end,
-
-        [Default] = function()
-            return rawget(self, key)
-        end,
-    }
+function Tile:getWalkableAttribute()
+	return tile(self.x, self.y, 'walkable')
 end
 
-Player.__newindex = function(self, key, value)
-    local x = rawget(self, 'x')
-    local y = rawget(self, 'y')
-
-    switch(key) {
-        frame = function(frame)
-            settile(x, y, frame)
-        end,
-
-        [Default] = function()
-            rawset(self, key, value)
-        end,
-    }
+function Tile:getEntityAttribute()
+	return tile(self.x, self.y, 'entity')
 end
+
+function Tile:getHascustomframeAttribute()
+	return tile(self.x, self.y, 'hascustomframe')
+end
+
+function Tile:getOriginalframeAttribute()
+	return tile(self.x, self.y, 'originalframe')
+end
+
+function Tile:getRotAttribute()
+	return tile(self.x, self.y, 'rot')
+end
+
+function Tile:getBlendAttribute()
+	return tile(self.x, self.y, 'blend')
+end
+
+function Tile:getColorAttribute()
+	return tile(self.x, self.y, 'color')
+end
+
+function Tile:getBrightnessAttribute()
+	return tile(self.x, self.y, 'brightness')
+end
+
+function Tile:getNoneAttribute()
+	return self.property_id == Tile.NONE
+end
+
+function Tile:geWalltAttribute()
+    return table.contains({Tile.WALL, Tile.WALLNOSHADOW}, self.property_id)
+end
+
+function Tile:getObstacleAttribute()
+    return table.contains({Tile.OBSTACLE, Tile.OBSTACLENOSHADOW}, self.property_id)
+end
+
+function Tile:getDeadlyAttribute()
+    return table.contains({Tile.DEADLY, Tile.TOXICDEADLY, Tile.EXPLOSIONDEADLY, Tile.ABYSSDEADLY}, self.property_id)
+end
+
+-------------------------
+--       SETTERS       --
+-------------------------
+
+function Tile:setFrameAttribute(frame)
+    print(self.x, self.y)
+	parse('settile', self.x, self.y, frame)
+end
+
+-------------------------
+--        INIT         --
+-------------------------
+
+return Tile

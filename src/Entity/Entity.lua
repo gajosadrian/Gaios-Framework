@@ -1,5 +1,5 @@
-Entity.Entity = class()
-local Entity = Entity.Entity
+local Entity
+Entity = class()
 
 function Entity:constructor(x, y)
     self.x = x
@@ -10,47 +10,48 @@ function Entity:trigger()
     trigger(self.name)
 end
 
-Entity.__index = function(self, key)
-    return switch(key) {
-
-        exists = function()
-            return entity(self.x, self.y, 'exists')
-        end,
-
-        typename = function()
-            return entity(self.x, self.y, 'typename')
-        end,
-
-        typeId = function()
-            return entity(self.x, self.y, 'type')
-        end,
-
-        type = function()
-            return entity(self.x, self.y, 'type')
-        end,
-
-        name = function()
-            return entity(self.x, self.y, 'name')
-        end,
-
-        trigger = function()
-            return entity(self.x, self.y, 'trigger')
-        end,
-
-        state = function()
-            return entity(self.x, self.y, 'state')
-        end,
-
-        int0 = function()
-            return entity(self.x, self.y, 'int0')
-        end,
-
-        str0 = function()
-            return entity(self.x, self.y, 'str0')
-        end,
-
-        aistate = function()
-            return entity(self.x, self.y, 'aistate')
-        end,
-    }
+function Entity:getExistsAttribute()
+    return entity(self.x, self.y, 'exists')
 end
+
+function Entity:getTypenameAttribute()
+    return entity(self.x, self.y, 'typename')
+end
+
+function Entity:getTypeIdAttribute()
+    return entity(self.x, self.y, 'type')
+end
+
+function Entity:getTypeAttribute()
+    return entity(self.x, self.y, 'type')
+end
+
+function Entity:getNameAttribute()
+    return entity(self.x, self.y, 'name')
+end
+
+function Entity:getTriggerAttribute()
+    return entity(self.x, self.y, 'trigger')
+end
+
+function Entity:getStateAttribute()
+    return entity(self.x, self.y, 'state')
+end
+
+function Entity:getInt0Attribute()
+    return entity(self.x, self.y, 'int0')
+end
+
+function Entity:getStr0Attribute()
+    return entity(self.x, self.y, 'str0')
+end
+
+function Entity:getAistateAttribute()
+    return entity(self.x, self.y, 'aistate')
+end
+
+-------------------------
+--        INIT         --
+-------------------------
+
+return Entity

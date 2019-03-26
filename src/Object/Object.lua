@@ -1,7 +1,7 @@
-Object.Object = class()
-local Object = Object.Object
+local Object
+Object = class()
 
-Object.Teams = {
+Object.TEAMS = {
     none = 0,
     neutral = 0,
     terrorist = 1,
@@ -19,138 +19,143 @@ Object.Teams = {
 --     soldier = 5,
 -- }
 
+function Object:constructor(set_id)
+    -- set_id = (set_id == nil) and true or false
+    -- if set_id then
+    --     self.id = Object.lastSpawnedId()
+    -- end
+
+    self.type = app('object.objecttype').new(self.type_id)
+    -- self.user = app('user.user').new(self.user_id)
+end
+
+-------------------------
+--        CONST        --
+-------------------------
+
 function Object.lastSpawnedId()
-    local objects = Object.getAll()
+    local objects = Object.getAllRaw()
     return objects[#objects]
 end
 
-function Object.getAll()
+function Object.getAllRaw()
     return object(0, 'table')
 end
 
-Object.__index = function(self, key)
-    local id = rawget(self, 'id')
+-------------------------
+--       GETTERS       --
+-------------------------
 
-    return switch(key) {
-        exists = function()
-            return object(id, 'exists')
-        end,
-
-        typeName = function()
-            return object(id, 'typename')
-        end,
-
-        typeId = function()
-            return object(id, 'type')
-        end,
-
-        type = function()
-            return Object.ObjectType.new(self.id)
-        end,
-
-        health = function()
-            return object(id, 'health')
-        end,
-
-        mode = function()
-            return object(id, 'mode')
-        end,
-
-        team = function()
-            return object(id, 'team')
-        end,
-
-        playerId = function()
-            return object(id, 'player')
-        end,
-
-        player = function()
-            return User.find(self.playerId)
-        end,
-
-        x = function()
-            return object(id, 'x')
-        end,
-
-        y = function()
-            return object(id, 'y')
-        end,
-
-        rot = function()
-            return object(id, 'rot')
-        end,
-
-        tilex = function()
-            return object(id, 'tilex')
-        end,
-
-        tiley = function()
-            return object(id, 'tiley')
-        end,
-
-        countdown = function()
-            return object(id, 'countdown')
-        end,
-
-        rootrot = function()
-            return object(id, 'rootrot')
-        end,
-
-        idle = function()
-            return object(id, 'idle')
-        end,
-
-        rotvar = function()
-            return object(id, 'rotvar')
-        end,
-
-        target = function()
-            return object(id, 'target')
-        end,
-
-        upgrade = function()
-            return object(id, 'upgrade')
-        end,
-
-        entity = function()
-            return object(id, 'entity')
-        end,
-
-        entityx = function()
-            return object(id, 'entityx')
-        end,
-
-        entityy = function()
-            return object(id, 'entityy')
-        end,
-
-        [Default] = function()
-            return rawget(self, key)
-        end,
-    }
+function Object:getExistsAttribute()
+	return object(self.id, 'exists')
 end
 
-Object.__newindex = function(self, key, value)
-    switch(key) {
-        health = function()
-            local damage = self.health - value
-            self:damage(damage)
-
-            if self.health <= 0 then
-                self:remove()
-            end
-        end,
-
-        x = function()
-            self:setPos(value, self.y)
-        end,
-
-        y = function()
-            self:setPos(self.x, value)
-        end,
-
-        [Default] = function()
-            rawset(self, key, value)
-        end,
-    }
+function Object:getTypenameAttribute()
+	return object(self.id, 'typename')
 end
+
+function Object:getTypeIdAttribute()
+	return object(self.id, 'type')
+end
+
+function Object:getHealthAttribute()
+	return object(self.id, 'health')
+end
+
+function Object:getModeAttribute()
+	return object(self.id, 'mode')
+end
+
+function Object:getTeamAttribute()
+	return object(self.id, 'team')
+end
+
+function Object:getPlayerIdAttribute()
+	return object(self.id, 'id')
+end
+
+function Object:getUserIdAttribute()
+    return object(self.id, 'player')
+end
+
+function Object:getXAttribute()
+	return object(self.id, 'x')
+end
+
+function Object:getYAttribute()
+	return object(self.id, 'y')
+end
+
+function Object:getRotAttribute()
+	return object(self.id, 'rot')
+end
+
+function Object:getTilexAttribute()
+	return object(self.id, 'tilex')
+end
+
+function Object:getTileyAttribute()
+	return object(self.id, 'tiley')
+end
+
+function Object:getCountdownAttribute()
+	return object(self.id, 'countdown')
+end
+
+function Object:getRootrotAttribute()
+	return object(self.id, 'rootrot')
+end
+
+function Object:getIdleAttribute()
+	return object(self.id, 'idle')
+end
+
+function Object:getRotvarAttribute()
+	return object(self.id, 'rotvar')
+end
+
+function Object:getTargetAttribute()
+	return object(self.id, 'target')
+end
+
+function Object:getUpgradeAttribute()
+	return object(self.id, 'upgrade')
+end
+
+function Object:getEntityAttribute()
+	return object(self.id, 'entity')
+end
+
+function Object:getEntityxAttribute()
+	return object(self.id, 'entityx')
+end
+
+function Object:getEntityyAttribute()
+	return object(self.id, 'entityy')
+end
+
+-------------------------
+--       SETTERS       --
+-------------------------
+
+function Object:setXAttribute(value)
+	self:setPos(value, self.y)
+end
+
+function Object:setYAttribute(value)
+	self:setPos(self.x, value)
+end
+
+function Object:setTilexAttribute(value)
+	self:setPos(value, self.tiley)
+end
+
+function Object:setTileyAttribute(value)
+	self:setPos(self.tilex, value)
+end
+
+-------------------------
+--        INIT         --
+-------------------------
+
+return Object

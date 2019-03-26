@@ -250,17 +250,17 @@ if (not loaded) then
         _msg2(id, utf8.convert(txt))
     end
 
-    local _print = print
-    function print(...)
-        local arg = {...}
-        for i = 1, #arg do
-            arg[i] = utf8.convert(tostring(arg[i]))
-        end
-        _print(unpack(arg))
-    end
+    -- local _print = print
+    -- function print(...)
+    --     local arg = {...}
+    --     for i = 1, #arg do
+    --         arg[i] = utf8.convert(tostring(arg[i]))
+    --     end
+    --     _print(unpack(arg))
+    -- end
 
-    local _parse = parse
-    function parse(cmd, ...)
-        _parse(utf8.convert(cmd), ...)
-    end
+    -- local _parse = parse
+    -- function parse(cmd, ...)
+    --     _parse(utf8.convert(cmd), ...)
+    -- end
 end

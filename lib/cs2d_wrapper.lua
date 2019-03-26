@@ -1,11 +1,9 @@
 local _parse = parse
 function parse(...)
     local args = {...}
-    local str = ''
-
+    local cmd = ''
     for _, v in pairs(args) do
-        str = str .. '\"' .. v .. '\" '
+        cmd = cmd .. '\"' .. v .. '\" '
     end
-
-    return str
+    _parse(cmd)
 end

@@ -1,10 +1,29 @@
+local function useAttributes(class)
+    function class:__index(key)
+        local attribute_key = 'get' .. underscore_to_camelcase(key) .. 'Attribute'
+        if class[attribute_key] then
+            return class[attribute_key](self)
+        end
+        return rawget(class, key)
+    end
+
+    function class:__newindex(key, value)
+        local attribute_key = 'set' .. underscore_to_camelcase(key) .. 'Attribute'
+        if class[attribute_key] then
+            class[attribute_key](self, value)
+        else
+            rawset(self, key, value)
+        end
+    end
+end
+
 -- The following function will return a class. It can also inherit properties
 -- from another class by passing the needed class as the first argument.
 class = function(inheritsFrom)
     -- Checks if all the arguments are correct.
     if inheritsFrom then
-        if type(inheritsFrom) ~= 'table' then
-            error('Passed \'inheritsFrom\' parameter is not valid. Table expected, '.. type(inheritsFrom) ..' passed.', 2)
+        if type(inheritsFrom) ~= "table" then
+            error("Passed \"inheritsFrom\" parameter is not valid. Table expected, ".. type(inheritsFrom) .." passed.", 2)
         end
     end
 
@@ -20,7 +39,7 @@ class = function(inheritsFrom)
             __call = function(_, ...) -- If it was called as a function, then call the constructor.
                 inheritsFrom.constructor(...)
             end})
-        setmetatable(class, {__index = inheritsFrom, __index = inheritsFrom.__index, __newindex = inheritsFrom.__newindex}) -- Inherit properties.
+        setmetatable(class, {__index = inheritsFrom}) -- Inherit properties.
     end
 
     -- Creates a new instance of the class.
@@ -55,6 +74,8 @@ class = function(inheritsFrom)
         -- Returns the instance.
         return instance
     end
+
+    useAttributes(class)
 
     -- Returns the class.
     return class
