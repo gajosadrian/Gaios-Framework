@@ -27,19 +27,6 @@ end
 --         IO          --
 -------------------------
 
-local _enumdir = io.enumdir
-function io.enumdir(dir)
-    local tab = {}
-
-    for name in _enumdir(dir) do
-        if name ~= '.' and name ~= '..' then
-            table.insert(tab, name)
-        end
-    end
-
-    return pairs(tab)
-end
-
 function io.exists(file)
    local ok, err, code = os.rename(file, file)
    if not ok then
@@ -79,6 +66,17 @@ end
 -- Simple distance between two points
 function math.distance(x1, y1, x2, y2)
 	return(math.sqrt( (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) ))
+end
+
+function math.round(num,base)
+	if base == nil then
+		return math.floor(num+0.5)
+	else
+        if base > 0 then
+            base = math.pow(10,base)
+        end
+		return math.floor((num*base)+0.5)/base
+	end
 end
 
 -------------------------

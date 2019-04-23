@@ -56,6 +56,9 @@ end
 
 local _app = {}
 function app(class)
+    if not class:match('.') then
+        class = class .. '.' .. class
+    end
     return _app[class:lower()]
 end
 for _, dir in io.enumdir(__DIR__ .. 'src/') do
@@ -71,21 +74,11 @@ for _, dir in io.enumdir(__DIR__ .. 'src/') do
     end
 end
 
+-------------------------
+--        INIT         --
+-------------------------
+
 MAP = app('map.map').getInstance()
 GAME = app('game.game').getInstance()
 
-
-
-
-
-
--- TEST
-local function onJoin(id)
-    parse('makect', id)
-    parse('spawnplayer', id, 400, 400)
-end
-local function onSpawn(id)
-    parse('setpos', id, 400, 400)
-end
-addhook('join', onJoin)
-addhook('spawn', onSpawn)
+dofiledir(__DIR__ .. 'app/')
