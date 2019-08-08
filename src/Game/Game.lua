@@ -2,14 +2,6 @@ local Game
 Game = class()
 
 -------------------------
---        CONST        --
--------------------------
-
-function Game.getInstance()
-    return Game.new()
-end
-
--------------------------
 --       GETTERS       --
 -------------------------
 
