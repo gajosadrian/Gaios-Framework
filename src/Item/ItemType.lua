@@ -83,4 +83,14 @@ end
 --        INIT         --
 -------------------------
 
+local item_types = config('core.item_types')
+
+for _, id in pairs(types) do
+    item_types[_] = ItemType.new(id)
+end
+
+function ItemType.getInstance(id)
+    return item_types[id]
+end
+
 return ItemType
