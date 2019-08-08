@@ -80,4 +80,14 @@ end
 --        INIT         --
 -------------------------
 
+local object_types = config('core.object_types')
+
+for _, id in pairs(types) do
+    object_types[_] = ObjectType.new(id)
+end
+
+function ObjectType.getInstance(id)
+    return object_types[id]
+end
+
 return ObjectType
