@@ -1,12 +1,12 @@
 local User
 User = class()
 
-function User:constructor(playerId)
-    self.playerId = playerId
+function User:constructor(id)
+    self.id = id
 end
 
 function User:kick(reason)
-    kick(id, reason)
+    kick(self.id, reason)
 end
 
 function User:banIP(duration, reason)
@@ -26,7 +26,7 @@ function User:banUSGN(duration, reason)
 end
 
 function User:kill()
-    killplayer(id)
+    killplayer(self.id)
 end
 
 function User:killCustom(killer, weapon)
@@ -34,31 +34,31 @@ function User:killCustom(killer, weapon)
 end
 
 function User:slap()
-    slap(id)
+    slap(self.id)
 end
 
 function User:setPos(x, y)
-    setpos(id, x, y)
+    setpos(self.id, x, y)
 end
 
 function User:spawn(x, y)
-    spawnplayer(id, x, y)
+    spawnplayer(self.id, x, y)
 end
 
 function User:equip(item_id)
-    equip(id, item_id)
+    equip(self.id, item_id)
 end
 
 function User:reroute(address)
-    reroute(id, address)
+    reroute(self.id, address)
 end
 
 function User:shake(power)
-    shake(id, power)
+    shake(self.id, power)
 end
 
 function User:strip(weapon)
-    strip(id, weapon)
+    strip(self.id, weapon)
 end
 
 -------------------------
@@ -67,8 +67,8 @@ end
 
 local function getUsers(mode)
     local players = {}
-    for _, playerId in pairs(player(0, mode)) do
-        local steamId = player(playerId, 'steamid')
+    for _, id in pairs(player(0, mode)) do
+        local steamId = player(id, 'steamid')
         table.insert(players, Config.Auth.player.model.find(steamId))
     end
     return players
@@ -307,11 +307,11 @@ end
 -------------------------
 
 function User:setNameAttribute(value)
-	setname(id, value, 1)
+	setname(self.id, value, 1)
 end
 
 function User:setName2Attribute(value) -- server message while changing
-	setname(id, value, 0)
+	setname(self.id, value, 0)
 end
 
 function User:setTeamAttribute(value)
@@ -337,7 +337,7 @@ function User:setTilexAttribute(value)
 end
 
 function User:setTileyAttribute(value)
-	setpos(id, self.x, misc.tile_to_pixel(value))
+	setpos(self.id, self.x, misc.tile_to_pixel(value))
 end
 
 function User:setHealthAttribute(value)
@@ -369,7 +369,7 @@ function User:setSpeedmodAttribute(value)
 end
 
 function User:setMaxhealthAttribute(value)
-	setmaxhealth(id, value)
+	setmaxhealth(self.id, value)
 end
 
 -------------------------
