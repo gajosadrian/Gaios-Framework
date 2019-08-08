@@ -25,7 +25,7 @@ function Object:constructor(set_id)
     --     self.id = Object.lastSpawnedId()
     -- end
 
-    self.type = app('object.objecttype').new(self.type_id)
+    self.type = app('object.objecttype').getInstance(self.type_id)
     -- self.user = app('user.user').new(self.user_id)
 end
 
