@@ -2,9 +2,9 @@ local Map
 Map = class()
 
 function Map:constructor()
-    self.tiles = {}
-    self.items = {}
-    self.buildings = {}
+    self.tiles = config('core.tiles')
+    self.items = config('core.items')
+    self.buildings = config('core.buildings')
 
     self:init()
 end
