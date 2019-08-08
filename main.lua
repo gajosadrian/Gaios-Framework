@@ -56,7 +56,7 @@ end
 
 local _app = {}
 function app(class)
-    if not class:match('.') then
+    if not class:match('[.]') then
         class = class .. '.' .. class
     end
     return _app[class:lower()]
@@ -78,7 +78,7 @@ end
 --        INIT         --
 -------------------------
 
-MAP = app('map.map').new()
-GAME = app('game.game').new()
+MAP = app('map').new()
+GAME = app('game').new()
 
 dofiledir(__DIR__ .. 'app/')

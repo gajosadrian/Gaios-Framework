@@ -1228,6 +1228,26 @@ function Collection:zip(values)
     return zipped
 end
 
+--- Removes item from collection by Key
+function Collection:removeByKey(key)
+    if self.table[key] then
+        self.table[key] = nil
+        return true
+    end
+    return false
+end
+
+--- Removes item from collection by Id
+function Collection:removeById(id)
+    for key, value in pairs(self.table) do
+        if value.id == id then
+            self.table[key] = nil
+            return true
+        end
+    end
+    return false
+end
+
 
 
 -----[[ ALIASES FOR OTHER FUNCTIONS ]]-----
