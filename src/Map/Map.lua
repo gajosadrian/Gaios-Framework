@@ -139,14 +139,6 @@ function Map:removeBuilding(a, b)
 end
 
 -------------------------
---        CONST        --
--------------------------
-
-function Map.getInstance()
-    return Map.new()
-end
-
--------------------------
 --       GETTERS       --
 -------------------------
 
