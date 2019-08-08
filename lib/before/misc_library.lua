@@ -1,3 +1,5 @@
+misc = {}
+
 -- calculate the direction beetween 2 points
 function misc.point_direction(x1,y1,x2,y2)
     local dir = -math.round(math.deg(math.atan2(x1-x2,y1-y2)))
