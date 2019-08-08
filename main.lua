@@ -78,7 +78,7 @@ end
 --        INIT         --
 -------------------------
 
-MAP = app('map.map').getInstance()
-GAME = app('game.game').getInstance()
+MAP = app('map.map').new()
+GAME = app('game.game').new()
 
 dofiledir(__DIR__ .. 'app/')
