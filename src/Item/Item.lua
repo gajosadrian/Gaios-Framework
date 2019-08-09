@@ -1,11 +1,16 @@
 local Item
 Item = class()
 
+local items = config('core.items')
+
 function Item:constructor(...)
     self.id = nil
     self:spawn(...)
 
-    self.type = app('item.itemtype', self.type_id)
+    self.type = app('item.itemtype').getInstance(self.type_id)
+    var_dump(self.type)
+
+    table.insert(items, self)
 end
 
 function Item:spawn(...)
@@ -15,6 +20,7 @@ end
 
 function Item:remove()
     parse('removeitem', self.id)
+    table.removeValue(items, item)
 end
 
 function Item:setPos(x, y)
@@ -28,12 +34,34 @@ end
 -------------------------
 
 function Item.lastSpawnedId()
-    local items = Item.getAllRaw()
+    local items = Item.allRaw()
     return items[#items]
 end
 
-function Item.getAllRaw()
+function Item.allRaw()
     return item(0, 'table')
+end
+
+function Item.all()
+    return items
+end
+
+function Item.get(id)
+    for _, item in pairs(items) do
+        if item.id == id then
+            return item
+        end
+    end
+end
+
+function Item.getAt(x, y)
+    local tab = {}
+    for _, item in pairs(items) do
+        if item.x == x and item.y == y then
+            table.insert(tab, item)
+        end
+    end
+    return tab
 end
 
 -------------------------

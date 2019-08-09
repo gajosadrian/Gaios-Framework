@@ -86,7 +86,7 @@ end
 local item_types = config('core.item_types')
 
 for _, id in pairs(types) do
-    item_types[_] = ItemType.new(id)
+    item_types[id] = ItemType.new(id)
 end
 
 function ItemType.getInstance(id)

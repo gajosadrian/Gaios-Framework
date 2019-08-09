@@ -83,7 +83,7 @@ end
 local object_types = config('core.object_types')
 
 for _, id in pairs(types) do
-    object_types[_] = ObjectType.new(id)
+    object_types[id] = ObjectType.new(id)
 end
 
 function ObjectType.getInstance(id)

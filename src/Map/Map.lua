@@ -27,49 +27,8 @@ function Map:getTile(x, y)
     return self.tiles[x][y]
 end
 
-function Map:getItems()
-    return self.items
-end
-
-function Map:getItem(item_id)
-    for _, item in pairs(self.items) do
-        if item.id == item_id then
-            return item
-        end
-    end
-end
-
-function Map:getItemsAt(x, y)
-    local tab = {}
-    for _, item in pairs(self.items) do
-        if item.x == x and item.y == y then
-            table.insert(tab, item)
-        end
-    end
-    return tab
-end
-
 function Map:addItem(...)
-    local args = {...}
-    local x, y = args[2], args[3]
-
-    local item = app('item.item').new(...)
-    table.insert(self.items, item)
-
-    return item
-end
-
-function Map:removeItem(item_id)
-    local item = self:getItem(item_id)
-
-    if not item then
-        return false
-    end
-
-    item:remove()
-    table.removeValue(self.items, item)
-
-    return true
+    return app('item.item').new(...)
 end
 
 function Map:getBuildings()

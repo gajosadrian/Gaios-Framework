@@ -6,7 +6,7 @@ return {
     items = collect(),
     tiles = collect(),
 
-    item_types = collect(),
-    object_types = collect(),
+    item_types = {},
+    object_types = {},
 
 }
