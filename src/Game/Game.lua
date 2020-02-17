@@ -449,7 +449,7 @@ function Game:setDaylighttimeAttribute(value)
 end
 
 function Game:setForcelightAttribute(value)
-	sv_Forcelight(value)
+	sv_forcelight(value)
 end
 
 function Game:setFowAttribute(value)

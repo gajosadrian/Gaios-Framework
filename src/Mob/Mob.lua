@@ -22,7 +22,7 @@ function Mob:constructor()
     self.frame = 1
 end
 
-function Mob:init()
+function Mob:init() -- TODO: change func name to "spawn"?
     if not self.path then
         print_error('MOB ERROR: image path isn\'t set')
     end

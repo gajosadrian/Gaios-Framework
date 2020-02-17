@@ -1,26 +1,27 @@
-local ItemType
-ItemType = class()
+local ItemType = class()
+
+local itemtype = itemtype
 
 local types = {
-    usp = 1, glock = 2, deagle = 3, p228 = 4, elite = 5,
-    fiveseven = 6, m3 = 10, xm1014 = 11, mp5 = 20, tmp = 21,
-    mac10 = 23, ump45 = 23, ak47 = 30, sg552 = 31, m4a1 = 32,
-    aug = 33, scout = 34, awp = 35, g3sg1 = 36, sg550 = 37,
-    galil = 38, famas = 39, fnf2000 = 91, m249 = 40, laser = 45,
-    flamethrower = 46, rpglauncher = 47, rocketlauncher = 48,
-    grenadelauncher = 49, portalgun = 88, m134 = 90, knife = 50,
-    machete = 69, wrench = 74, claw = 78, chainsaw = 85, he = 51,
-    flashbang = 52, smokegrenade = 53, flare = 54, gasgrenade = 72,
-    molotovcocktail = 73, snowball = 75, airstrike = 76, gutbomb = 86,
-    satchelcharge = 89, mine = 77, lasermine = 87, tacticalshield = 41,
-    defusekit = 41, kevlar = 57, kevlarhelm = 58, nightvision = 59,
-    gasmask = 60, primaryammo = 61, secondaryammo = 62, bomb = 55,
-    plantedbomb = 63, medikit = 64, bandage = 65, coins = 66, money = 67,
-    gold = 68, redflag = 70, blueflag = 71, lightarmor = 79, armor = 80,
-    heavyarmour = 81, medicarmor = 82, superarmor = 83, stealthsuit = 84
+    USP = 1, GLOCK = 2, DEAGLE = 3, P228 = 4, ELITE = 5,
+    FIVESEVEN = 6, M3 = 10, XM1014 = 11, MP5 = 20, TMP = 21,
+    MAC10 = 23, UMP45 = 23, AK47 = 30, SG552 = 31, M4A1 = 32,
+    AUG = 33, SCOUT = 34, AWP = 35, G3SG1 = 36, SG550 = 37,
+    GALIL = 38, FAMAS = 39, FNF2000 = 91, M249 = 40, LASER = 45,
+    FLAMETHROWER = 46, RPG_LAUNCHER = 47, ROCKET_LAUNCHER = 48,
+    GRENADE_LAUNCHER = 49, PORTAL_GUN = 88, M134 = 90, KNIFE = 50,
+    MACHETE = 69, WRENCH = 74, CLAW = 78, CHAINSAW = 85, HE = 51,
+    FLASHBANG = 52, SMOKE_GRENADE = 53, FLARE = 54, GAS_GRENADE = 72,
+    MOLOTOV_COCKTAIL = 73, SNOWBALL = 75, AIRSTRIKE = 76, GUT_BOMB = 86,
+    SATCHEL_CHARGE = 89, MINE = 77, LASER_MINE = 87, TACTICAL_SHIELD = 41,
+    DEFUSE_KIT = 41, KEVLAR = 57, KEVLAR_HELM = 58, NIGHTVISION = 59,
+    GAS_MASK = 60, PRIMARY_AMMO = 61, SECONDARY_AMMO = 62, BOMB = 55,
+    PLANTED_BOMB = 63, MEDIKIT = 64, BANDAGE = 65, COINS = 66, MONEY = 67,
+    GOLD = 68, RED_FLAG = 70, BLUE_FLAG = 71, LIGHT_ARMOR = 79, ARMOR = 80,
+    HEAVY_ARMOUR = 81, MEDIC_ARMOR = 82, SUPER_ARMOR = 83, STEALTH_SUIT = 84,
 }
 for type, value in pairs(types) do
-    ItemType[type:upper()] = value
+    ItemType[type] = value
 end
 
 function ItemType:constructor(id)
@@ -55,7 +56,7 @@ function ItemType:getAmmoAttribute()
 	return itemtype(self.id, 'ammo')
 end
 
-function ItemType:getAmmoinAttribute()
+function ItemType:getAmmoInAttribute()
 	return itemtype(self.id, 'ammoin')
 end
 
