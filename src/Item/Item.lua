@@ -1,41 +1,51 @@
-local Item
-Item = class()
+local Item = class()
+local ITEMS = config('core.items')
+local items_id = {}
 
-local items = config('core.items')
-
-function Item:constructor(...)
+function Item:constructor(type_id, x, y, ammo_in, ammo)
     self.id = nil
-    self:spawn(...)
+    self:spawn(type_id, x, y, ammo_in, ammo)
 
     self.type = app('item.itemtype').getInstance(self.type_id)
     var_dump(self.type)
 
-    table.insert(items, self)
+    ITEMS[#ITEMS] = self
 end
 
-function Item:spawn(...)
-    parse('spawnitem', ...)
-    self.id =  Item.lastSpawnedId()
+-------------------------
+--       METHODS       --
+-------------------------
+
+function Item:setLastId()
+    self.id = Item.lastId()
+end
+
+function Item:spawn(type_id, x, y, ammo_in, ammo)
+    parse('spawnitem', type_id, x, y, ammo_in, ammo)
+    self:setLastId()
+end
+
+function Item:destroy()
+    parse('removeitem', self.id)
 end
 
 function Item:remove()
-    parse('removeitem', self.id)
-    table.removeValue(items, item)
+    self:destroy()
+    table.removeValue(ITEMS, item)
 end
 
 function Item:setPos(x, y)
-    local args = {self.type_id, x, y, self.ammoin, self.ammo}
-    self:remove()
-    self:spawn(unpack(args))
+    self:destroy()
+    self:spawn(self.type_id, x, y, self.ammo_in, self.ammo)
 end
 
 -------------------------
---        CONST        --
+--   STATIC METHODS    --
 -------------------------
 
-function Item.lastSpawnedId()
-    local items = Item.allRaw()
-    return items[#items]
+function Item.lastId()
+    local item_ids = Item.allRaw()
+    return item_ids[#item_ids]
 end
 
 function Item.allRaw()
@@ -43,11 +53,14 @@ function Item.allRaw()
 end
 
 function Item.all()
-    return items
+    return ITEMS
 end
 
 function Item.get(id)
-    for _, item in pairs(items) do
+
+    -- TODO: Create id-index table
+
+    for _, item in pairs(ITEMS) do
         if item.id == id then
             return item
         end
@@ -55,13 +68,18 @@ function Item.get(id)
 end
 
 function Item.getAt(x, y)
-    local tab = {}
-    for _, item in pairs(items) do
+    local ITEMS = ITEMS
+    local array = {}
+
+    for i = 1, #ITEMS do
+        local item = ITEMS[i]
+
         if item.x == x and item.y == y then
-            table.insert(tab, item)
+            array[#array] = item
         end
     end
-    return tab
+
+    return array
 end
 
 -------------------------
@@ -88,7 +106,7 @@ function Item:getAmmoAttribute()
 	return item(self.id, 'ammo')
 end
 
-function Item:getAmmoinAttribute()
+function Item:getAmmoInAttribute()
 	return item(self.id, 'ammoin')
 end
 

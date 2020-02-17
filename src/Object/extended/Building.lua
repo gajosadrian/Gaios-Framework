@@ -1,26 +1,21 @@
-local Object = app('object.object')
+local Object = app('object')
+local Building = class(Object)
 
-local Building
-Building = class(Object)
-
--- type_id, x, y, rot, mode, team, player
-function Building:constructor(...)
+function Building:constructor(type_id, x, y, rot, mode, team, player)
     self.id = nil
-    self:spawn(...)
+    self:spawn(type_id, x, y, rot, mode, team, player)
 
     self.max_health = self.health
     self:super()
 end
 
--- function Building:destructor()
---     self:remove()
--- end
+-------------------------
+--       METHODS       --
+-------------------------
 
-function Building:spawn(...)
-    local args = {...}
-
-    parse('spawnobject', ...)
-    self.id = Building.lastSpawnedId()
+function Building:spawn(type_id, x, y, rot, mode, team, player)
+    parse('spawnobject', type_id, x, y, rot, mode, team, player)
+    self.id = Building.lastId()
 end
 
 function Building:remove()
@@ -29,10 +24,9 @@ end
 
 function Building:setPos(x, y)
     local health = self.health
-    local args = {self.type_id, x, y, self.rot, self.mode, self.team, self.player}
 
     self:remove()
-    self:spawn(unpack(args))
+    self:spawn(self.type_id, x, y, self.rot, self.mode, self.team, self.player)
     self.health = health
 end
 
@@ -51,7 +45,7 @@ function Building:addHealth(value)
 end
 
 -------------------------
---       GETTERS       --
+--       SETTERS       --
 -------------------------
 
 function Building:setHealthAttribute(value)

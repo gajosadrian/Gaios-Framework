@@ -2,43 +2,46 @@ local Object
 Object = class()
 
 Object.TEAMS = {
-    none = 0,
-    neutral = 0,
-    terrorist = 1,
-    zombie = 1,
-    counterterrorist = 2,
-    survivor = 2,
-    vip = 3,
+    NONE = 0,
+    NEUTRAL = 0,
+    TERRORIST = 1,
+    ZOMBIE = 1,
+    COUNTERTERRORIST = 2,
+    SURVIVOR = 2,
+    VIP = 3,
 }
 
--- Object.NPCs = {
---     zombie = 1,
---     headcrab = 2,
---     snark = 3,
---     vortigaunt = 4,
---     soldier = 5,
--- }
+Object.NPCs = {
+    ZOMBIE = 1,
+    HEADCRAB = 2,
+    SNARK = 3,
+    VORTIGAUNT = 4,
+    SOLDIER = 5,
+}
 
-function Object:constructor(set_id)
-    -- set_id = (set_id == nil) and true or false
-    -- if set_id then
-    --     self.id = Object.lastSpawnedId()
-    -- end
-
+function Object:constructor()
     self.type = app('object.objecttype').getInstance(self.type_id)
     -- self.user = app('user.user').new(self.user_id)
 end
 
 -------------------------
---        CONST        --
+--       METHODS       --
 -------------------------
 
-function Object.lastSpawnedId()
-    local objects = Object.getAllRaw()
+function Object:setLastId()
+    self.id = Object.lastId()
+end
+
+-------------------------
+--   STATIC METHODS    --
+-------------------------
+
+function Object.lastId()
+    local objects = Object.allRaw()
     return objects[#objects]
 end
 
-function Object.getAllRaw()
+function Object.allRaw()
     return object(0, 'table')
 end
 

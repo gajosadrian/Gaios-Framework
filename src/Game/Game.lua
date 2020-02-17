@@ -1,5 +1,16 @@
-local Game
-Game = class()
+local Game = class()
+local instance
+
+-------------------------
+--       Methods       --
+-------------------------
+
+function Game.getInstance()
+    if not instance then
+        instance = Game.new()
+    end
+    return instance
+end
 
 -------------------------
 --       GETTERS       --

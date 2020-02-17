@@ -1,30 +1,51 @@
-local Map
-Map = class()
+local Map = class()
+local instance
 
 function Map:constructor()
     self.tiles = config('core.tiles')
-    self.items = config('core.items')
-    self.buildings = config('core.buildings')
+    -- self.items = config('core.items')
+    -- self.buildings = config('core.buildings')
 
     self:init()
 end
 
-function Map:init()
-    self:generateTiles()
+-------------------------
+--   STATIC METHODS    --
+-------------------------
+
+function Map.getInstance()
+    if not instance then
+        instance = Game.new()
+    end
+    return instance
 end
 
-function Map:generateTiles()
+-------------------------
+--       METHODS       --
+-------------------------
+
+function Map:init()
+    self:initTiles()
+end
+
+function Map:initTiles()
+    local tiles = self.tiles
+
     for y = 0, self.ysize - 1 do
         for x = 0, self.xsize - 1 do
             local tile = app('map.tile').new(x, y)
 
-            table.insert2D(self.tiles, x, y, tile)
+            table.insert2D(tiles, x, y, tile)
         end
     end
 end
 
 function Map:getTile(x, y)
     return self.tiles[x][y]
+end
+
+function Map:getTileAt(x, y)
+    return self:getTile(x, y)
 end
 
 function Map:addItem(...)
