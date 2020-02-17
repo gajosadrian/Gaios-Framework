@@ -1,5 +1,8 @@
-local Tile
-Tile = class()
+local Tile = class()
+
+local tile = tile
+local parse = parse
+local table_contains = table.contains
 
 local types = {
     none = 0,
@@ -77,16 +80,16 @@ function Tile:getNoneAttribute()
 	return self.property_id == Tile.NONE
 end
 
-function Tile:geWalltAttribute()
-    return table.contains({Tile.WALL, Tile.WALLNOSHADOW}, self.property_id)
+function Tile:getWallAttribute()
+    return table_contains({Tile.WALL, Tile.WALLNOSHADOW}, self.property_id)
 end
 
 function Tile:getObstacleAttribute()
-    return table.contains({Tile.OBSTACLE, Tile.OBSTACLENOSHADOW}, self.property_id)
+    return table_contains({Tile.OBSTACLE, Tile.OBSTACLENOSHADOW}, self.property_id)
 end
 
 function Tile:getDeadlyAttribute()
-    return table.contains({Tile.DEADLY, Tile.TOXICDEADLY, Tile.EXPLOSIONDEADLY, Tile.ABYSSDEADLY}, self.property_id)
+    return table_contains({Tile.DEADLY, Tile.TOXICDEADLY, Tile.EXPLOSIONDEADLY, Tile.ABYSSDEADLY}, self.property_id)
 end
 
 -------------------------
