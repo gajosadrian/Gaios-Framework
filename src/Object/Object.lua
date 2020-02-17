@@ -19,17 +19,13 @@ Object.NPCs = {
     SOLDIER = 5,
 }
 
-function Object:constructor()
-    self.type = app('object.objecttype').getInstance(self.type_id)
-    -- self.user = app('user.user').new(self.user_id)
-end
-
 -------------------------
 --       METHODS       --
 -------------------------
 
-function Object:setLastId()
-    self.id = Object.lastId()
+function Object:init()
+    self.type = app('object.objecttype').getInstance(self.type_id)
+    -- self.user = app('user.user').new(self.user_id)
 end
 
 -------------------------
@@ -63,6 +59,10 @@ end
 
 function Object:getHealthAttribute()
 	return object(self.id, 'health')
+end
+
+function Object:getMaxHealthAttribute()
+	return self.type.health
 end
 
 function Object:getModeAttribute()

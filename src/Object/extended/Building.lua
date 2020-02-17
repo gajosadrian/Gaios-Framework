@@ -2,11 +2,9 @@ local Object = app('object')
 local Building = class(Object)
 
 function Building:constructor(type_id, x, y, rot, mode, team, player)
-    self.id = nil
+    self.id = false
+    self.type = false
     self:spawn(type_id, x, y, rot, mode, team, player)
-
-    self.max_health = self.health
-    self:super()
 end
 
 -------------------------
@@ -16,22 +14,39 @@ end
 function Building:spawn(type_id, x, y, rot, mode, team, player)
     parse('spawnobject', type_id, x, y, rot, mode, team, player)
     self.id = Building.lastId()
+    self:init()
 end
 
-function Building:remove()
+function Building:destroy()
     parse('killobject', self.id)
 end
 
-function Building:setPos(x, y)
-    local health = self.health
+function Building:remove()
+    self:destroy()
+end
 
-    self:remove()
-    self:spawn(self.type_id, x, y, self.rot, self.mode, self.team, self.player)
+function Building:setPos(x, y)
+    local health, type_id, rot, mode, team, player = self.health, self.type_id, self.rot, self.mode, self.team, self.player
+
+    self:destroy()
+    self:spawn(type_id, x, y, rot, mode, team, player)
     self.health = health
 end
 
-function Building:damage(damage, user_id)
-    parse('damageobject', self.id, damage, user_id)
+function Building:changeType(type_id)
+    local health, x, y, rot, mode, team, player = self.health, self.x, self.y, self.rot, self.mode, self.team, self.player
+
+    self:destroy()
+    self:spawn(type_id, x, y, rot, mode, team, player)
+    self.health = health
+end
+
+function Building:damage(dmg, player)
+    parse('damageobject', self.id, dmg, player)
+end
+
+function Building:repair(dmg, player)
+    self:damage(-dmg, player)
 end
 
 function Building:addHealth(value)
