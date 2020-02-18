@@ -64,11 +64,11 @@ function Item:setPos(x, y)
 end
 
 function Item:setX(x)
-	self:setPos(x, self:getY())
+    self:setPos(x, self:getY())
 end
 
 function Item:setY(y)
-	self:setPos(self:getX(), y)
+    self:setPos(self:getX(), y)
 end
 
 -------------------------
@@ -119,70 +119,70 @@ function Item:getName()
     if not tmp.name then
         tmp.name = item(self.id, 'name')
     end
-	return tmp.name
+    return tmp.name
 end
 
 function Item:getTypeId()
     if not tmp.type_id then
         tmp.type_id = item(self.id, 'type')
     end
-	return tmp.type_id
+    return tmp.type_id
 end
 
 function Item:getUserId()
     if not tmp.user_id then
         tmp.user_id = item(self.id, 'player')
     end
-	return tmp.user_id
+    return tmp.user_id
 end
 
 function Item:getAmmo()
     if not tmp.ammo then
         tmp.ammo = item(self.id, 'ammo')
     end
-	return tmp.ammo
+    return tmp.ammo
 end
 
 function Item:getAmmoIn()
     if not tmp.ammo_in then
         tmp.ammo_in = item(self.id, 'ammoin')
     end
-	return tmp.ammo_in
+    return tmp.ammo_in
 end
 
 function Item:getMode()
     if not tmp.mode then
         tmp.mode = item(self.id, 'mode')
     end
-	return tmp.mode
+    return tmp.mode
 end
 
 function Item:getX()
     if not tmp.x then
         tmp.x = item(self.id, 'x')
     end
-	return tmp.x
+    return tmp.x
 end
 
 function Item:getY()
     if not tmp.y then
         tmp.y = item(self.id, 'y')
     end
-	return tmp.y
+    return tmp.y
 end
 
 function Item:isDropped()
     if not tmp.is_dropped then
         tmp.is_dropped = item(self.id, 'dropped')
     end
-	return tmp.is_dropped
+    return tmp.is_dropped
 end
 
 function Item:getDropTimer()
     if not tmp.drop_timer then
         tmp.drop_timer = item(self.id, 'droptimer')
     end
-	return tmp.drop_timer
+    return tmp.drop_timer
 end
 
 -------------------------
