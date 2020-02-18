@@ -1,10 +1,16 @@
 local Object = app('object')
 local Building = class(Object)
 
+local BUILDINGS = config('core.buildings')
+
 function Building:constructor(type_id, x, y, rot, mode, team, player)
-    self.id = false
-    self.type = false
+    -- @vars
+    -- id, type
+
+    self:super(type_id)
     self:spawn(type_id, x, y, rot, mode, team, player)
+
+    BUILDINGS[#BUILDINGS] = self
 end
 
 -------------------------
@@ -13,8 +19,7 @@ end
 
 function Building:spawn(type_id, x, y, rot, mode, team, player)
     parse('spawnobject', type_id, x, y, rot, mode, team, player)
-    self.id = Building.lastId()
-    self:init()
+    self.id = Building.getLastId()
 end
 
 function Building:destroy()

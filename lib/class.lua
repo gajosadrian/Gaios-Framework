@@ -75,7 +75,8 @@ class = function(inheritsFrom)
         return instance
     end
 
-    useAttributes(class)
+    -- it's 17x times slower
+    -- useAttributes(class)
 
     -- Returns the class.
     return class

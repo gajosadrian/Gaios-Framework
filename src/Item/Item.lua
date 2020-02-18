@@ -1,29 +1,31 @@
 local Item = class()
-local ITEMS = config('core.items')
 
-local items_id = {}
+local ITEMS = config('core.items')
+local ITEMS_ID = {}
+
+local item = item
+local tmp = {}
 
 function Item:constructor(type_id, x, y, ammo_in, ammo)
-    self.id = false
-    self.type = false
+    -- @vars
+    -- id, type
+
+    self.type = app('item.itemtype').getInstance(type_id)
     self:spawn(type_id, x, y, ammo_in, ammo)
 
     -- var_dump(self.type)
 
     ITEMS[#ITEMS] = self
+    ITEMS_ID[self.id] = self
 end
 
 -------------------------
 --       METHODS       --
 -------------------------
 
-function Item:init()
-    self.type = app('item.itemtype').getInstance(self.type_id)
-end
-
 function Item:spawn(type_id, x, y, ammo_in, ammo)
     parse('spawnitem', type_id, x, y, ammo_in, ammo)
-    self.id = Item.lastId()
+    self.id = Item.getLastId()
     self:init()
 end
 
@@ -31,61 +33,73 @@ function Item:destroy()
     parse('removeitem', self.id)
 end
 
+function Item:respawn(type_id, x, y, ammo_in, ammo)
+    self:destroy()
+    self:spawn(type_id, x, y, ammo_in, ammo)
+end
+
 function Item:remove()
     self:destroy()
-    table.removeValue(ITEMS, self)
+    table.removevalue(ITEMS, self)
+    ITEMS_ID[self.id] = nil
+end
+
+-------------------------
+--       SETTERS       --
+-------------------------
+
+function Item:setAmmoIn(ammo_in)
+    tmp.ammo_in = nil
+    parse('setammo', self.id, 0, ammo_in, self:getAmmo())
+end
+
+function Item:setAmmo(ammo)
+    tmp.ammo = nil
+    parse('setammo', self.id, 0, self:getAmmoIn(), ammo)
 end
 
 function Item:setPos(x, y)
-    local type_id, ammo_in, ammo = self.type_id, self.ammo_in, self.ammo
-
-    self:destroy()
-    self:spawn(type_id, x, y, ammo_in, ammo)
+    tmp.x, tmp.y = nil, nil
+    self:respawn(self:getTypeId(), x, y, self:getAmmoIn(), self:getAmmo())
 end
 
-function Item:changeType(type_id)
-    local x, y, ammo_in, ammo = self.x, self.y, self.ammo_in, self.ammo
+function Item:setX(x)
+	self:setPos(x, self:getY())
+end
 
-    self:destroy()
-    self:spawn(type_id, x, y, ammo_in, ammo)
+function Item:setY(y)
+	self:setPos(self:getX(), y)
 end
 
 -------------------------
 --   STATIC METHODS    --
 -------------------------
 
-function Item.lastId()
-    local item_ids = Item.allRaw()
+function Item.getLastId()
+    local item_ids = Item.getAllRaw()
     return item_ids[#item_ids]
 end
 
-function Item.allRaw()
+function Item.getAllRaw()
     return item(0, 'table')
 end
 
-function Item.all()
+function Item.getAll()
     return ITEMS
 end
 
 function Item.get(id)
-
-    -- TODO: Create id-index table
-
-    for _, item in pairs(ITEMS) do
-        if item.id == id then
-            return item
-        end
-    end
+    return ITEMS_ID[id]
 end
 
 function Item.getAt(x, y)
-    local ITEMS = ITEMS
+    local items = ITEMS
     local array = {}
 
-    for i = 1, #ITEMS do
-        local item = ITEMS[i]
+    for i = 1, #items do
+        local item = items[i]
 
-        if item.x == x and item.y == y then
+        if item:getX() == x and item:getY() == y then
             array[#array] = item
         end
     end
@@ -97,72 +111,78 @@ end
 --       GETTERS       --
 -------------------------
 
-function Item:getExistsAttribute()
+function Item:exists()
     return item(self.id, 'exists')
 end
 
-function Item:getNameAttribute()
-	return item(self.id, 'name')
+function Item:getName()
+    if not tmp.name then
+        tmp.name = item(self.id, 'name')
+    end
+	return tmp.name
 end
 
-function Item:getTypeIdAttribute()
-	return item(self.id, 'type')
+function Item:getTypeId()
+    if not tmp.type_id then
+        tmp.type_id = item(self.id, 'type')
+    end
+	return tmp.type_id
 end
 
-function Item:getPlayerAttribute()
-	return item(self.id, 'player')
+function Item:getUserId()
+    if not tmp.user_id then
+        tmp.user_id = item(self.id, 'player')
+    end
+	return tmp.user_id
 end
 
-function Item:getAmmoAttribute()
-	return item(self.id, 'ammo')
+function Item:getAmmo()
+    if not tmp.ammo then
+        tmp.ammo = item(self.id, 'ammo')
+    end
+	return tmp.ammo
 end
 
-function Item:getAmmoInAttribute()
-	return item(self.id, 'ammoin')
+function Item:getAmmoIn()
+    if not tmp.ammo_in then
+        tmp.ammo_in = item(self.id, 'ammoin')
+    end
+	return tmp.ammo_in
 end
 
-function Item:getModeAttribute()
-	return item(self.id, 'mode')
+function Item:getMode()
+    if not tmp.mode then
+        tmp.mode = item(self.id, 'mode')
+    end
+	return tmp.mode
 end
 
-function Item:getXAttribute()
-	return item(self.id, 'x')
+function Item:getX()
+    if not tmp.x then
+        tmp.x = item(self.id, 'x')
+    end
+	return tmp.x
 end
 
-function Item:getYAttribute()
-	return item(self.id, 'y')
+function Item:getY()
+    if not tmp.y then
+        tmp.y = item(self.id, 'y')
+    end
+	return tmp.y
 end
 
-function Item:getDroppedAttribute()
-	return item(self.id, 'dropped')
+function Item:isDropped()
+    if not tmp.is_dropped then
+        tmp.is_dropped = item(self.id, 'dropped')
+    end
+	return tmp.is_dropped
 end
 
-function Item:getDroptimerAttribute()
-	return item(self.id, 'droptimer')
-end
-
--------------------------
---       GETTERS       --
--------------------------
-
-function Item:setTypeIdAttribute(value)
-    self:changeType(value)
-end
-
-function Item:setAmmoInAttribute(value)
-    parse('setammo', self.id, 0, value, self.ammo)
-end
-
-function Item:setAmmoAttribute(value)
-    parse('setammo', self.id, 0, self.ammo_in, value)
-end
-
-function Item:setXAttribute(value)
-	self:setPos(value, self.y)
-end
-
-function Item:setYAttribute(value)
-	self:setPos(self.x, value)
+function Item:getDropTimer()
+    if not tmp.drop_timer then
+        tmp.drop_timer = item(self.id, 'droptimer')
+    end
+	return tmp.drop_timer
 end
 
 -------------------------

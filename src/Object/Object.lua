@@ -1,43 +1,38 @@
 local Object
 Object = class()
 
-Object.TEAMS = {
-    NONE = 0,
-    NEUTRAL = 0,
-    TERRORIST = 1,
-    ZOMBIE = 1,
-    COUNTERTERRORIST = 2,
-    SURVIVOR = 2,
-    VIP = 3,
-}
+-- Object.TEAMS = {
+--     NONE = 0,
+--     NEUTRAL = 0,
+--     TERRORIST = 1,
+--     ZOMBIE = 1,
+--     COUNTERTERRORIST = 2,
+--     SURVIVOR = 2,
+--     VIP = 3,
+-- }
+--
+-- Object.NPCs = {
+--     ZOMBIE = 1,
+--     HEADCRAB = 2,
+--     SNARK = 3,
+--     VORTIGAUNT = 4,
+--     SOLDIER = 5,
+-- }
 
-Object.NPCs = {
-    ZOMBIE = 1,
-    HEADCRAB = 2,
-    SNARK = 3,
-    VORTIGAUNT = 4,
-    SOLDIER = 5,
-}
-
--------------------------
---       METHODS       --
--------------------------
-
-function Object:init()
-    self.type = app('object.objecttype').getInstance(self.type_id)
-    -- self.user = app('user.user').new(self.user_id)
+function Object:constructor(type_id)
+    self.type = app('object.objecttype').getInstance(self:getTypeId())
 end
 
 -------------------------
 --   STATIC METHODS    --
 -------------------------
 
-function Object.lastId()
-    local objects = Object.allRaw()
+function Object.getLastId()
+    local objects = Object.getAllRaw()
     return objects[#objects]
 end
 
-function Object.allRaw()
+function Object.getAllRaw()
     return object(0, 'table')
 end
 

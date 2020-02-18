@@ -33,6 +33,20 @@ function Tile:constructor(x, y)
 end
 
 -------------------------
+--       METHODS       --
+-------------------------
+
+function Tile:getItems()
+    return Item.getAt(self.x, self.y)
+end
+
+function Tile:getBuilding()
+
+    -- TODO
+
+end
+
+-------------------------
 --       GETTERS       --
 -------------------------
 
