@@ -1,4 +1,6 @@
 local Tile = class()
+local Item = app('item')
+local Building = app('object.building')
 
 local tile = tile
 local parse = parse
@@ -41,9 +43,7 @@ function Tile:getItems()
 end
 
 function Tile:getBuilding()
-
-    -- TODO
-
+    return Building.getAt(self.x, self.y)
 end
 
 -------------------------

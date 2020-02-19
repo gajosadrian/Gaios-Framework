@@ -1,5 +1,7 @@
 local Map = class()
+
 local instance
+local config_map = config('map')
 
 function Map:constructor()
     self.tiles = config('core.tiles')

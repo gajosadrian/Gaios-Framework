@@ -1,26 +1,40 @@
-local Object
-Object = class()
+local Object = class()
 
--- Object.TEAMS = {
---     NONE = 0,
---     NEUTRAL = 0,
---     TERRORIST = 1,
---     ZOMBIE = 1,
---     COUNTERTERRORIST = 2,
---     SURVIVOR = 2,
---     VIP = 3,
--- }
---
--- Object.NPCs = {
---     ZOMBIE = 1,
---     HEADCRAB = 2,
---     SNARK = 3,
---     VORTIGAUNT = 4,
---     SOLDIER = 5,
--- }
+local object = object
+local tmp = {}
+
+-------------------------------------------------
+--              REQUIRED METHODS               --
+--                                             --
+-- Object:setPos(x, y)                         --
+-------------------------------------------------
+
+-------------------------
+--     CONSTRUCTOR     --
+-------------------------
 
 function Object:constructor(type_id)
     self.type = app('object.objecttype').getInstance(self:getTypeId())
+end
+
+-------------------------
+--       SETTERS       --
+-------------------------
+
+function Object:setXAttribute(x)
+	self:setPos(x, self.y)
+end
+
+function Object:setYAttribute(y)
+	self:setPos(self.x, y)
+end
+
+function Object:setTileXAttribute(tx)
+	self:setPos(tx, self.tiley)
+end
+
+function Object:setTileYAttribute(ty)
+	self:setPos(self.tilex, ty)
 end
 
 -------------------------
@@ -130,26 +144,6 @@ end
 
 function Object:getEntityyAttribute()
 	return object(self.id, 'entityy')
-end
-
--------------------------
---       SETTERS       --
--------------------------
-
-function Object:setXAttribute(value)
-	self:setPos(value, self.y)
-end
-
-function Object:setYAttribute(value)
-	self:setPos(self.x, value)
-end
-
-function Object:setTilexAttribute(value)
-	self:setPos(value, self.tiley)
-end
-
-function Object:setTileyAttribute(value)
-	self:setPos(self.tilex, value)
 end
 
 -------------------------

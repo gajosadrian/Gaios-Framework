@@ -2,14 +2,14 @@ local ObjectType
 ObjectType = class()
 
 local types = {
-    barricade = 1, barbedwire = 2, wall1 = 3, wall2 = 4, wall3 = 5,
-    gatefield = 6, dispenser = 7, turret = 8, supply = 9, buildplace = 10,
-    dualturret = 11, tripleturret = 12, teleporterentrance = 13, teleporterexit = 14,
-    supersupply = 15, mine = 20, lasermine = 21, portal1 = 22, portal2 = 23, npc = 30,
-    dynamicimage = 40
+    BARRICADE = 1, BARBED_WIRE = 2, WALL_1 = 3, WALL_2 = 4, WALL_3 = 5,
+    GATE_FIELD = 6, DISPENSER = 7, TURRET = 8, SUPPLY = 9, BUILD_PLACE = 10,
+    DUAL_TURRET = 11, TRIPLE_TURRET = 12, TELEPORTER_ENTRANCE = 13, TELEPORTER_EXIT = 14,
+    SUPER_SUPPLY = 15, MINE = 20, LASER_MINE = 21, PORTAL_1 = 22, PORTAL_2 = 23, NPC = 30,
+    DYNAMICI_MAGE = 40
 }
-for type, value in pairs(types) do
-    ObjectType[type:upper()] = value
+for type, id in pairs(types) do
+    ObjectType[type_name] = id
 end
 
 function ObjectType:constructor(id)

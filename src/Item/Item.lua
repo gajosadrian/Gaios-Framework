@@ -16,7 +16,6 @@ function Item:constructor(type_id, x, y, ammo_in, ammo)
     -- var_dump(self.type)
 
     ITEMS[#ITEMS] = self
-    ITEMS_ID[self.id] = self
 end
 
 -------------------------
@@ -26,11 +25,13 @@ end
 function Item:spawn(type_id, x, y, ammo_in, ammo)
     parse('spawnitem', type_id, x, y, ammo_in, ammo)
     self.id = Item.getLastId()
-    self:init()
+    ITEMS_ID[self.id] = self
 end
 
 function Item:destroy()
     parse('removeitem', self.id)
+    ITEMS_ID[self.id] = nil
+    self.id = nil
 end
 
 function Item:respawn(type_id, x, y, ammo_in, ammo)
@@ -41,7 +42,6 @@ end
 function Item:remove()
     self:destroy()
     table.removevalue(ITEMS, self)
-    ITEMS_ID[self.id] = nil
 end
 
 -------------------------

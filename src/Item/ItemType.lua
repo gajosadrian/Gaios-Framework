@@ -2,6 +2,10 @@ local ItemType = class()
 
 local itemtype = itemtype
 
+-------------------------
+--        CONST        --
+-------------------------
+
 local types = {
     USP = 1, GLOCK = 2, DEAGLE = 3, P228 = 4, ELITE = 5,
     FIVESEVEN = 6, M3 = 10, XM1014 = 11, MP5 = 20, TMP = 21,
@@ -20,8 +24,8 @@ local types = {
     GOLD = 68, RED_FLAG = 70, BLUE_FLAG = 71, LIGHT_ARMOR = 79, ARMOR = 80,
     HEAVY_ARMOUR = 81, MEDIC_ARMOR = 82, SUPER_ARMOR = 83, STEALTH_SUIT = 84,
 }
-for type, value in pairs(types) do
-    ItemType[type] = value
+for type_name, id in pairs(types) do
+    ItemType[type_name] = id
 end
 
 function ItemType:constructor(id)

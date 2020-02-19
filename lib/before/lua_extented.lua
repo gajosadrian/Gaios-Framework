@@ -103,7 +103,7 @@ function table.implode(tab, before, after, between)
     return result
 end
 
-function table.isEmpty(tab)
+function table.empty(tab)
     return next(tab) == nil
 end
 
@@ -115,7 +115,7 @@ function table.keys(tab)
     return keys
 end
 
-function table.removeValue(tab, value)
+function table.removevalue(tab, value)
     for _, v in pairs(tab) do
         if v == value then
             table.remove(tab, _)
@@ -128,6 +128,25 @@ end
 function table.insert2D(tab, x, y, value)
     tab[x] = tab[x] or {}
     tab[x][y] = value
+end
+
+function table.initarray(n, val)
+     local array = {}
+     for i = 1, n do
+          array[i] = val
+     end
+     return array
+end
+
+function table.initarray2D(n, m, val)
+    local array = {}
+    for x = 0, n do
+        array[x] = {}
+        for y = 0, m do
+            array[x][y] = val
+        end
+    end
+    return array
 end
 
 local function _string(o)
